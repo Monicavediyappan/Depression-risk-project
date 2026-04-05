@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quantum Depression Risk — AIDS Patients | Final Year Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & ROOT ─────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #030712;
+  --bg2:       #0a1628;
+  --bg3:       #0f2040;
+  --teal:      #00d4aa;
+  --teal-dim:  #00a88a;
+  --blue:      #3d9eff;
+  --gold:      #f5c842;
+  --coral:     #ff6b6b;
+  --white:     #f0f6ff;
+  --muted:     #7a9cc0;
+  --border:    rgba(0,212,170,0.15);
+  --card:      rgba(10,22,40,0.8);
+  --font-head: 'Syne', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-body: 'Space Mono', monospace;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── ANIMATED BACKGROUND ──────────────────────── */
+.bg-grid {
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,170,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,170,0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  z-index: 0;
+  animation: orbFloat 12s ease-in-out infinite;
+}
+.orb1 { width:500px; height:500px; background:rgba(0,212,170,0.06); top:-100px; right:-100px; animation-delay:0s; }
+.orb2 { width:400px; height:400px; background:rgba(61,158,255,0.05); bottom:100px; left:-100px; animation-delay:4s; }
+.orb3 { width:300px; height:300px; background:rgba(245,200,66,0.04); top:50%; left:50%; animation-delay:8s; }
+
+@keyframes orbFloat {
+  0%,100% { transform: translate(0,0) scale(1); }
+  33%      { transform: translate(30px,-20px) scale(1.05); }
+  66%      { transform: translate(-20px,30px) scale(0.95); }
+}
+
+/* ── NAV ──────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 16px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(3,7,18,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav-logo {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--teal);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.nav-links { display: flex; gap: 30px; }
+.nav-links a {
+  color: var(--muted);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  transition: color 0.3s;
+}
+.nav-links a:hover { color: var(--teal); }
+
+/* ── SECTIONS WRAPPER ─────────────────────────── */
+main { position: relative; z-index: 1; }
+section { padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
+
+/* ── HERO ─────────────────────────────────────── */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 120px;
+  max-width: 100%;
+  padding-left: 60px;
+  padding-right: 60px;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0,212,170,0.08);
+  border: 1px solid rgba(0,212,170,0.25);
+  border-radius: 4px;
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--teal);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  animation: fadeUp 0.8s ease both;
+}
+
+.hero-tag::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--teal);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(1.5); }
+}
+
+h1 {
+  font-family: var(--font-head);
+  font-size: clamp(42px, 6vw, 88px);
+  font-weight: 800;
+  line-height: 1.0;
+  letter-spacing: -2px;
+  margin-bottom: 24px;
+  animation: fadeUp 0.8s 0.1s ease both;
+}
+
+.h1-line1 { color: var(--white); display: block; }
+.h1-line2 { color: var(--teal);  display: block; }
+.h1-line3 { color: var(--muted); display: block; font-weight: 600; font-size: 0.65em; letter-spacing: -1px; }
+
+.hero-desc {
+  max-width: 620px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.8;
+  margin-bottom: 48px;
+  animation: fadeUp 0.8s 0.2s ease both;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--teal);
+  color: var(--bg);
+  padding: 14px 28px;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+.btn-primary:hover {
+  background: var(--teal-dim);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,212,170,0.3);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: var(--white);
+  padding: 14px 28px;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.2);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all 0.3s;
+}
+.btn-secondary:hover {
+  border-color: var(--teal);
+  color: var(--teal);
+  transform: translateY(-2px);
+}
+
+/* Hero stats bar */
+.hero-stats {
+  display: flex;
+  gap: 0;
+  margin-top: 80px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  animation: fadeUp 0.8s 0.4s ease both;
+  max-width: 800px;
+}
+
+.hero-stat {
+  flex: 1;
+  padding: 24px 20px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+  background: rgba(0,212,170,0.03);
+  transition: background 0.3s;
+}
+.hero-stat:last-child { border-right: none; }
+.hero-stat:hover { background: rgba(0,212,170,0.07); }
+
+.hero-stat-val {
+  font-family: var(--font-head);
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--teal);
+  line-height: 1;
+}
+.hero-stat-lbl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* ── SECTION HEADINGS ─────────────────────────── */
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--teal);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: var(--font-head);
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 800;
+  letter-spacing: -1px;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.section-sub {
+  color: var(--muted);
+  font-size: 14px;
+  max-width: 560px;
+  margin-bottom: 60px;
+  line-height: 1.8;
+}
+
+/* ── DIVIDER ──────────────────────────────────── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: var(--border);
+  margin: 0;
+}
+
+/* ── METRICS STRIP ────────────────────────────── */
+#metrics {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 50px 60px;
+  max-width: 100%;
+}
+
+.metrics-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+}
+
+.metric-item {
+  padding: 20px 24px;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.metric-item:last-child { border-right: none; }
+
+.metric-num {
+  font-family: var(--font-head);
+  font-size: 40px;
+  font-weight: 800;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--teal), var(--blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.metric-unit {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+.metric-change {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--teal);
+  margin-top: 4px;
+}
+
+/* ── ABOUT / PROBLEM ──────────────────────────── */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.problem-points { list-style: none; margin-top: 24px; }
+.problem-points li {
+  display: flex;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.problem-points li:last-child { border-bottom: none; }
+
+.point-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--teal);
+  min-width: 24px;
+  padding-top: 2px;
+  font-weight: 700;
+}
+
+.stat-callout {
+  background: rgba(0,212,170,0.05);
+  border: 1px solid rgba(0,212,170,0.2);
+  border-radius: 8px;
+  padding: 32px;
+  margin-top: 24px;
+  text-align: center;
+}
+.stat-callout .big { font-family: var(--font-head); font-size: 56px; font-weight: 800; color: var(--coral); line-height: 1; }
+.stat-callout .lbl { font-family: var(--font-mono); font-size: 11px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; margin-top: 8px; }
+
+/* ── PIPELINE ─────────────────────────────────── */
+#pipeline { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); max-width: 100%; padding: 100px 60px; }
+.pipeline-inner { max-width: 1200px; margin: 0 auto; }
+
+.pipeline-steps {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 0;
+  margin-top: 60px;
+  position: relative;
+}
+
+.pipeline-steps::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--teal), var(--blue), var(--teal), transparent);
+  z-index: 0;
+}
+
+.pipeline-step {
+  text-align: center;
+  padding: 0 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.step-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-head);
+  font-size: 22px;
+  font-weight: 800;
+  border: 2px solid;
+  position: relative;
+  transition: transform 0.3s;
+}
+.pipeline-step:hover .step-circle { transform: scale(1.1); }
+
+.step-circle.c1 { background:rgba(0,212,170,0.1); border-color:var(--teal); color:var(--teal); }
+.step-circle.c2 { background:rgba(61,158,255,0.1); border-color:var(--blue); color:var(--blue); }
+.step-circle.c3 { background:rgba(245,200,66,0.1); border-color:var(--gold); color:var(--gold); }
+.step-circle.c4 { background:rgba(255,107,107,0.1); border-color:var(--coral); color:var(--coral); }
+.step-circle.c5 { background:rgba(0,212,170,0.1); border-color:var(--teal); color:var(--teal); }
+.step-circle.c6 { background:rgba(61,158,255,0.1); border-color:var(--blue); color:var(--blue); }
+
+.step-title {
+  font-family: var(--font-head);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.step-desc {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+/* ── INNOVATIONS ──────────────────────────────── */
+.innovations-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 10px;
+}
+
+.innovation-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 28px;
+  transition: all 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.innovation-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+  background: var(--accent-color, var(--teal));
+  transition: width 0.3s;
+}
+
+.innovation-card:hover {
+  border-color: rgba(0,212,170,0.3);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.innovation-card:hover::before { width: 5px; }
+
+.card-num {
+  font-family: var(--font-head);
+  font-size: 48px;
+  font-weight: 800;
+  opacity: 0.07;
+  position: absolute;
+  top: 10px;
+  right: 16px;
+  color: var(--white);
+  line-height: 1;
+}
+
+.card-icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+  display: block;
+}
+
+.card-title {
+  font-family: var(--font-head);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.card-body {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.card-tag {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 3px 10px;
+  border-radius: 3px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* ── COMPARISON TABLE ─────────────────────────── */
+.compare-wrap {
+  margin-top: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.compare-header {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.5fr;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+}
+
+.compare-header > div {
+  padding: 16px 24px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-right: 1px solid var(--border);
+}
+.compare-header > div:last-child { border-right: none; }
+.compare-header > div.highlight { color: var(--teal); }
+
+.compare-row {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1.5fr;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+.compare-row:last-child { border-bottom: none; }
+.compare-row:hover { background: rgba(0,212,170,0.03); }
+
+.compare-row > div {
+  padding: 16px 24px;
+  font-size: 13px;
+  border-right: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.compare-row > div:last-child { border-right: none; }
+
+.compare-label { color: var(--white); font-weight: 600; font-family: var(--font-mono); font-size: 12px; }
+.compare-base  { color: var(--coral); font-family: var(--font-mono); font-size: 12px; }
+.compare-ours  { color: var(--teal);  font-family: var(--font-mono); font-size: 12px; font-weight: 700; }
+
+.badge {
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-size: 9px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.badge-red   { background: rgba(255,107,107,0.15); color: var(--coral); }
+.badge-green { background: rgba(0,212,170,0.15);   color: var(--teal);  }
+
+/* ── QUANTUM SECTION ──────────────────────────── */
+#quantum { background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); max-width: 100%; padding: 100px 60px; }
+.quantum-inner { max-width: 1200px; margin: 0 auto; }
+
+.quantum-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 10px;
+}
+
+.quantum-card {
+  background: rgba(0,212,170,0.03);
+  border: 1px solid rgba(0,212,170,0.15);
+  border-radius: 8px;
+  padding: 36px;
+  transition: all 0.3s;
+}
+.quantum-card:hover {
+  background: rgba(0,212,170,0.06);
+  border-color: rgba(0,212,170,0.3);
+  transform: translateY(-3px);
+}
+
+.quantum-card-title {
+  font-family: var(--font-head);
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--teal);
+  margin-bottom: 6px;
+}
+.quantum-card-sub {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.circuit-display {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--teal);
+  line-height: 1.8;
+  margin: 16px 0;
+  overflow-x: auto;
+}
+
+.gate-list { list-style: none; margin-top: 16px; }
+.gate-list li {
+  display: flex;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--muted);
+}
+.gate-list li:last-child { border-bottom: none; }
+.gate-tag {
+  background: rgba(0,212,170,0.1);
+  border: 1px solid rgba(0,212,170,0.3);
+  color: var(--teal);
+  padding: 1px 8px;
+  border-radius: 3px;
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 50px;
+  text-align: center;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+/* ── XAI SECTION ──────────────────────────────── */
+.xai-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 10px;
+}
+
+.xai-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.xai-card:hover { transform: translateY(-4px); box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+
+.xai-header {
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.xai-name {
+  font-family: var(--font-head);
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+.xai-fullname {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.xai-body { padding: 20px 24px; }
+.xai-question {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--gold);
+  margin-bottom: 10px;
+  font-style: italic;
+}
+.xai-answer {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+.xai-result {
+  background: rgba(0,212,170,0.05);
+  border: 1px solid rgba(0,212,170,0.15);
+  border-radius: 4px;
+  padding: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--teal);
+  line-height: 1.6;
+}
+
+/* ── RESULTS ──────────────────────────────────── */
+.results-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-top: 10px;
+}
+
+.results-table {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.rt-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  background: var(--bg2);
+  border-bottom: 1px solid var(--border);
+}
+.rt-header > div {
+  padding: 12px 16px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-right: 1px solid var(--border);
+}
+.rt-header > div:last-child { border-right: none; }
+
+.rt-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+.rt-row:last-child { border-bottom: none; }
+.rt-row:hover { background: rgba(0,212,170,0.03); }
+.rt-row > div {
+  padding: 12px 16px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  border-right: 1px solid var(--border);
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+}
+.rt-row > div:last-child { border-right: none; }
+.rt-row > div:first-child { color: var(--white); }
+.rt-row.best > div { color: var(--gold); font-weight: 700; }
+.rt-row.best { background: rgba(245,200,66,0.04); }
+
+.improvement-box {
+  background: linear-gradient(135deg, rgba(0,212,170,0.08), rgba(61,158,255,0.05));
+  border: 1px solid rgba(0,212,170,0.2);
+  border-radius: 8px;
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.imp-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+}
+.imp-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+.imp-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.imp-bar-wrap { width: 160px; }
+.imp-bar-labels {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+.imp-bar-labels .base { color: var(--coral); }
+.imp-bar-labels .ours { color: var(--teal); }
+.imp-bar-track {
+  height: 8px;
+  background: rgba(255,107,107,0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+}
+.imp-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--coral), var(--teal));
+  transition: width 1s ease;
+}
+
+/* ── FOOTER ───────────────────────────────────── */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 60px;
+  text-align: center;
+}
+
+.footer-title {
+  font-family: var(--font-head);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--teal);
+  margin-bottom: 8px;
+}
+.footer-sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1.5px;
+  margin-bottom: 36px;
+}
+.footer-links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+.footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+.footer-link:hover { color: var(--teal); border-color: var(--teal); }
+
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: rgba(122,156,192,0.4);
+  letter-spacing: 1px;
+}
+
+/* ── ANIMATIONS ───────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── SCROLLBAR ────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--teal); }
+
+/* ── RESPONSIVE ───────────────────────────────── */
+@media (max-width: 768px) {
+  nav { padding: 14px 20px; }
+  .nav-links { display: none; }
+  #hero { padding: 120px 24px 60px; }
+  section { padding: 60px 24px; }
+  h1 { font-size: 36px; letter-spacing: -1px; }
+  .hero-stats { flex-wrap: wrap; }
+  .hero-stat { min-width: 50%; }
+  .metrics-inner { grid-template-columns: repeat(2, 1fr); }
+  .metric-item { border-right: none; border-bottom: 1px solid var(--border); }
+  .two-col { grid-template-columns: 1fr; gap: 40px; }
+  .pipeline-steps { grid-template-columns: repeat(2, 1fr); }
+  .pipeline-steps::before { display: none; }
+  .innovations-grid { grid-template-columns: 1fr; }
+  .quantum-grid { grid-template-columns: 1fr; }
+  .xai-grid { grid-template-columns: 1fr; }
+  .results-grid { grid-template-columns: 1fr; }
+  .compare-wrap { overflow-x: auto; }
+  .compare-header, .compare-row { min-width: 600px; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-grid"></div>
+<div class="bg-orb orb1"></div>
+<div class="bg-orb orb2"></div>
+<div class="bg-orb orb3"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">⚛ Quantum Dep-Risk</div>
+  <div class="nav-links">
+    <a href="#about">Problem</a>
+    <a href="#pipeline">Pipeline</a>
+    <a href="#innovations">Innovations</a>
+    <a href="#quantum">Quantum</a>
+    <a href="#xai">XAI</a>
+    <a href="#results">Results</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="hero">
+  <div class="hero-tag">Final Year Project — ECE Department</div>
+  <h1>
+    <span class="h1-line1">Quantum-Enhanced</span>
+    <span class="h1-line2">Depression Risk</span>
+    <span class="h1-line3">Prediction in AIDS Patients</span>
+  </h1>
+  <p class="hero-desc">
+    A quantum-classical hybrid system combining PennyLane VQC feature
+    selection and Qiskit QSVC with a stacking ensemble of RF, XGBoost,
+    LightGBM and SVM — achieving AUC 0.98 with full SHAP + LIME + DiCE
+    explainability. Improving on Routh &amp; Singh (IEEE Access, 2025)
+    across every dimension.
+  </p>
+  <div class="hero-cta">
+    <a href="https://github.com" class="btn-primary" target="_blank">
+      ↗ View on GitHub
+    </a>
+    <a href="#pipeline" class="btn-secondary">
+      Explore Project ↓
+    </a>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="hero-stat-val">0.98</div>
+      <div class="hero-stat-lbl">AUC-ROC</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">10K</div>
+      <div class="hero-stat-lbl">Patients</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">20</div>
+      <div class="hero-stat-lbl">Features</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">3</div>
+      <div class="hero-stat-lbl">XAI Methods</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-val">+7.7%</div>
+      <div class="hero-stat-lbl">AUC Gain</div>
+    </div>
+  </div>
+</div>
+
+<!-- METRICS STRIP -->
+<div id="metrics">
+  <div class="metrics-inner">
+    <div class="metric-item reveal">
+      <div class="metric-num">0.98</div>
+      <div class="metric-unit">AUC-ROC Score</div>
+      <div class="metric-change">↑ from 0.91 base paper</div>
+    </div>
+    <div class="metric-item reveal">
+      <div class="metric-num">91.25%</div>
+      <div class="metric-unit">Accuracy</div>
+      <div class="metric-change">↑ from 88% base paper</div>
+    </div>
+    <div class="metric-item reveal">
+      <div class="metric-num">4</div>
+      <div class="metric-unit">Qubits Used</div>
+      <div class="metric-change">RY + RZ + CNOT gates</div>
+    </div>
+    <div class="metric-item reveal">
+      <div class="metric-num">3</div>
+      <div class="metric-unit">XAI Methods</div>
+      <div class="metric-change">SHAP + LIME + DiCE</div>
+    </div>
+    <div class="metric-item reveal">
+      <div class="metric-num">100×</div>
+      <div class="metric-unit">More Data</div>
+      <div class="metric-change">10,000 vs 100 patients</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT / PROBLEM -->
+<section id="about">
+  <div class="two-col">
+    <div>
+      <div class="section-label reveal">The Problem</div>
+      <h2 class="section-title reveal">Why This Project Matters</h2>
+      <ul class="problem-points">
+        <li class="reveal">
+          <span class="point-num">01</span>
+          <span>38–62% of people living with HIV/AIDS develop depression or anxiety — yet it goes undiagnosed because symptoms overlap with HIV complications like fatigue and cognitive decline.</span>
+        </li>
+        <li class="reveal">
+          <span class="point-num">02</span>
+          <span>Untreated depression reduces ART adherence by up to 40%, leading to viral load rebound, CD4 depletion, and accelerated disease progression.</span>
+        </li>
+        <li class="reveal">
+          <span class="point-num">03</span>
+          <span>Only 27% of PLWH with depression ever receive adequate mental health treatment due to HIV-related stigma forcing patients to hide symptoms.</span>
+        </li>
+        <li class="reveal">
+          <span class="point-num">04</span>
+          <span>Prior work including the base paper used only 100 patients and 5 survey features — no HIV biomarkers, no deployment, no fairness testing.</span>
+        </li>
+      </ul>
+    </div>
+    <div>
+      <div class="stat-callout reveal">
+        <div class="big">38–62%</div>
+        <div class="lbl">of AIDS patients develop depression — most undetected</div>
+      </div>
+      <div class="stat-callout reveal" style="margin-top:16px; border-color:rgba(61,158,255,0.2); background:rgba(61,158,255,0.05);">
+        <div class="big" style="color:var(--blue);">27%</div>
+        <div class="lbl">receive adequate mental health treatment</div>
+      </div>
+      <div class="stat-callout reveal" style="margin-top:16px; border-color:rgba(245,200,66,0.2); background:rgba(245,200,66,0.05);">
+        <div class="big" style="color:var(--gold);">40%</div>
+        <div class="lbl">reduction in ART adherence due to untreated depression</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PIPELINE -->
+<div id="pipeline">
+  <div class="pipeline-inner">
+    <div class="section-label reveal">System Architecture</div>
+    <h2 class="section-title reveal">End-to-End Pipeline</h2>
+    <p class="section-sub reveal">Complete workflow from raw patient data to clinical report — 6 stages, under 3 seconds per patient.</p>
+
+    <div class="pipeline-steps">
+      <div class="pipeline-step reveal">
+        <div class="step-circle c1">1</div>
+        <div class="step-title">Data Layer</div>
+        <div class="step-desc">10,000 patients<br>20 clinical features<br>Validated distributions</div>
+      </div>
+      <div class="pipeline-step reveal">
+        <div class="step-circle c2">2</div>
+        <div class="step-title">Preprocessing</div>
+        <div class="step-desc">StandardScaler<br>SMOTE balancing<br>Stratified split</div>
+      </div>
+      <div class="pipeline-step reveal">
+        <div class="step-circle c3">3</div>
+        <div class="step-title">Quantum VQC</div>
+        <div class="step-desc">PennyLane<br>4-qubit circuit<br>Feature scoring</div>
+      </div>
+      <div class="pipeline-step reveal">
+        <div class="step-circle c4">4</div>
+        <div class="step-title">Stacking Ensemble</div>
+        <div class="step-desc">RF + XGB + LGBM<br>+ SVM → LogReg<br>AUC: 0.98</div>
+      </div>
+      <div class="pipeline-step reveal">
+        <div class="step-circle c5">5</div>
+        <div class="step-title">Triple XAI</div>
+        <div class="step-desc">SHAP + LIME<br>+ DiCE<br>Full explainability</div>
+      </div>
+      <div class="pipeline-step reveal">
+        <div class="step-circle c6">6</div>
+        <div class="step-title">Clinical Output</div>
+        <div class="step-desc">Risk prediction<br>Recommendations<br>Auto report</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- INNOVATIONS -->
+<section id="innovations">
+  <div class="section-label reveal">What We Built</div>
+  <h2 class="section-title reveal">7 Innovations Over the Base Paper</h2>
+  <p class="section-sub reveal">Every limitation of Routh &amp; Singh (2025) identified and addressed — dataset, features, quantum, XAI, fairness, validation, deployment.</p>
+
+  <div class="innovations-grid">
+    <div class="innovation-card reveal" style="--accent-color: var(--teal);">
+      <span class="card-num">01</span>
+      <span class="card-icon">📊</span>
+      <div class="card-title">100× Larger Dataset</div>
+      <div class="card-body">Generated 10,000 AIDS patients using medically validated statistical distributions — vs base paper's 100 patients. Makes model statistically robust.</div>
+      <span class="card-tag" style="background:rgba(0,212,170,0.1); color:var(--teal);">10,000 patients</span>
+    </div>
+
+    <div class="innovation-card reveal" style="--accent-color: var(--blue);">
+      <span class="card-num">02</span>
+      <span class="card-icon">🔬</span>
+      <div class="card-title">4× Richer Features</div>
+      <div class="card-body">Added 15 HIV-specific clinical features — CD4 count, viral load, ART adherence, stigma, sleep, nutrition — vs base paper's 5 survey scores only.</div>
+      <span class="card-tag" style="background:rgba(61,158,255,0.1); color:var(--blue);">20 features</span>
+    </div>
+
+    <div class="innovation-card reveal" style="--accent-color: var(--gold);">
+      <span class="card-num">03</span>
+      <span class="card-icon">⚛️</span>
+      <div class="card-title">Quantum-Classical Hybrid</div>
+      <div class="card-body">PennyLane VQC for quantum feature selection + Qiskit QSVC embedded inside stacking ensemble. Proves quantum stacking fixes standalone QSVC weakness.</div>
+      <span class="card-tag" style="background:rgba(245,200,66,0.1); color:var(--gold);">4-qubit VQC</span>
+    </div>
+
+    <div class="innovation-card reveal" style="--accent-color: var(--coral);">
+      <span class="card-num">04</span>
+      <span class="card-icon">💡</span>
+      <div class="card-title">Triple XAI Suite</div>
+      <div class="card-body">SHAP (global importance) + LIME (patient-level local) + DiCE (actionable counterfactuals) — vs base paper's single SHAP method only.</div>
+      <span class="card-tag" style="background:rgba(255,107,107,0.1); color:var(--coral);">SHAP+LIME+DiCE</span>
+    </div>
+
+    <div class="innovation-card reveal" style="--accent-color: var(--teal);">
+      <span class="card-num">05</span>
+      <span class="card-icon">⚖️</span>
+      <div class="card-title">Fairness Audit</div>
+      <div class="card-body">Fairlearn MetricFrame across gender, age groups, and CD4 severity — ensuring the model performs equally for all patient demographics.</div>
+      <span class="card-tag" style="background:rgba(0,212,170,0.1); color:var(--teal);">3 demographic groups</span>
+    </div>
+
+    <div class="innovation-card reveal" style="--accent-color: var(--blue);">
+      <span class="card-num">06</span>
+      <span class="card-icon">🔁</span>
+      <div class="card-title">Cross-Dataset Validation</div>
+      <div class="card-body">Tested on independent 2,000-patient dataset (seed=99, harsher distributions) cold — proving genuine generalization beyond the training data.</div>
+      <span class="card-tag" style="background:rgba(61,158,255,0.1); color:var(--blue);">2,000 new patients</span>
+    </div>
+
+    <div class="innovation-card reveal" style="--accent-color: var(--gold); grid-column: 1 / -1;">
+      <span class="card-num">07</span>
+      <span class="card-icon">🌐</span>
+      <div class="card-title">Auto Clinical Report + Real-Time Pipeline</div>
+      <div class="card-body">Auto-generated clinical reports per patient with risk level, probability, top SHAP risk factors, and DiCE intervention recommendations. Full end-to-end real-time pipeline processes any new patient in under 3 seconds — input validation → quantum scoring → ensemble prediction → SHAP explanation → clinical output.</div>
+      <span class="card-tag" style="background:rgba(245,200,66,0.1); color:var(--gold);">Under 3 seconds per patient</span>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- COMPARISON TABLE -->
+<section id="comparison">
+  <div class="section-label reveal">Head to Head</div>
+  <h2 class="section-title reveal">Base Paper vs Our Project</h2>
+  <p class="section-sub reveal">12-dimension comparison against Routh &amp; Singh, IEEE Access 2025.</p>
+
+  <div class="compare-wrap reveal">
+    <div class="compare-header">
+      <div>Dimension</div>
+      <div>Base Paper (2025)</div>
+      <div class="highlight">Our Project</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">Dataset Size</div>
+      <div class="compare-base"><span class="badge badge-red">100</span> patients</div>
+      <div class="compare-ours"><span class="badge badge-green">10,000</span> patients</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">Features</div>
+      <div class="compare-base"><span class="badge badge-red">5</span> psychometric only</div>
+      <div class="compare-ours"><span class="badge badge-green">20</span> clinical + social</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">Best AUC-ROC</div>
+      <div class="compare-base"><span class="badge badge-red">0.91</span></div>
+      <div class="compare-ours"><span class="badge badge-green">0.98</span> (+7.7%)</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">Best Accuracy</div>
+      <div class="compare-base">88%</div>
+      <div class="compare-ours">91.25%</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">Quantum Use</div>
+      <div class="compare-base">Standalone QSVC (52% acc)</div>
+      <div class="compare-ours">VQC + QSVC in ensemble</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">XAI Methods</div>
+      <div class="compare-base"><span class="badge badge-red">SHAP only</span></div>
+      <div class="compare-ours"><span class="badge badge-green">SHAP+LIME+DiCE</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">Counterfactuals</div>
+      <div class="compare-base">None</div>
+      <div class="compare-ours">DiCE — 3 actionable scenarios</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">Fairness Testing</div>
+      <div class="compare-base"><span class="badge badge-red">None</span></div>
+      <div class="compare-ours"><span class="badge badge-green">3 demographic groups</span></div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">Cross-Validation</div>
+      <div class="compare-base">Single 80-20 split</div>
+      <div class="compare-ours">K-fold + independent dataset</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">Clinical Report</div>
+      <div class="compare-base">None</div>
+      <div class="compare-ours">Auto-generated per patient</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">HIV Biomarkers</div>
+      <div class="compare-base">None</div>
+      <div class="compare-ours">CD4, viral load, ART, OI</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">Deployment</div>
+      <div class="compare-base"><span class="badge badge-red">None</span></div>
+      <div class="compare-ours"><span class="badge badge-green">GitHub Pages + Pipeline</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUANTUM SECTION -->
+<div id="quantum">
+  <div class="quantum-inner">
+    <div class="section-label reveal">Quantum Computing</div>
+    <h2 class="section-title reveal">Two Quantum Approaches</h2>
+    <p class="section-sub reveal">PennyLane VQC for feature selection + Qiskit QSVC for benchmarking — both simulated on CPU, no hardware required.</p>
+
+    <div class="quantum-grid">
+      <div class="quantum-card reveal">
+        <div class="quantum-card-title">PennyLane VQC</div>
+        <div class="quantum-card-sub">Variational Quantum Circuit — Feature Selection</div>
+        <div class="circuit-display">
+0: ─RY─RZ─╭●──────╭X─RY─┤&lt;Z&gt;
+1: ─RY─RZ──╰X─╭●──│──RY─┤&lt;Z&gt;
+2: ─RY─RZ─────╰X─╭●─RY─┤&lt;Z&gt;
+3: ─RY─RZ────────╰X─RY─┤&lt;Z&gt;
+        </div>
+        <ul class="gate-list">
+          <li>
+            <span class="gate-tag">RY</span>
+            Rotation around Y-axis — encodes patient feature values as quantum angles on the Bloch sphere
+          </li>
+          <li>
+            <span class="gate-tag">RZ</span>
+            Rotation around Z-axis — adds phase encoding for second layer of feature information
+          </li>
+          <li>
+            <span class="gate-tag">CNOT</span>
+            Controlled-NOT — creates quantum entanglement between adjacent qubits, capturing feature correlations
+          </li>
+          <li>
+            <span class="gate-tag">PauliZ</span>
+            Measurement — collapses quantum state to classical output, producing feature importance score
+          </li>
+        </ul>
+      </div>
+
+      <div class="quantum-card reveal">
+        <div class="quantum-card-title">Qiskit QSVC</div>
+        <div class="quantum-card-sub">Quantum Kernel SVC — Base Paper Benchmark</div>
+        <div class="circuit-display">
+ZZFeatureMap (same as base paper):
+feature_dim = 2
+reps        = 1
+entanglement = linear
+
+Kernel: FidelityQuantumKernel
+Classifier: QSVC
+
+Standalone result: ~52% accuracy
+  (matches base paper finding)
+
+Inside stacking ensemble: 0.98 AUC
+  (quantum stacking fixes weakness!)
+        </div>
+        <ul class="gate-list">
+          <li>
+            <span class="gate-tag">QSVC</span>
+            Quantum Support Vector Classifier — same architecture as base paper for direct comparison
+          </li>
+          <li>
+            <span class="gate-tag">ZZMap</span>
+            ZZFeatureMap maps classical data into quantum Hilbert space for kernel similarity
+          </li>
+          <li>
+            <span class="gate-tag">Result</span>
+            Standalone QSVC = 52% accuracy. Inside stacking = 0.98 AUC. Proves quantum stacking works.
+          </li>
+          <li>
+            <span class="gate-tag">ECE</span>
+            Demonstrated quantum noise simulation, Bloch sphere, Bell state, interference effects
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- XAI SECTION -->
+<section id="xai">
+  <div class="section-label reveal">Explainability</div>
+  <h2 class="section-title reveal">Triple XAI Suite</h2>
+  <p class="section-sub reveal">Three independent, complementary explainability methods — each answering a different clinical question. The base paper used only one.</p>
+
+  <div class="xai-grid">
+    <div class="xai-card reveal">
+      <div class="xai-header" style="border-left: 3px solid var(--teal);">
+        <div class="xai-name" style="color:var(--teal);">SHAP</div>
+        <div class="xai-fullname">SHapley Additive exPlanations</div>
+      </div>
+      <div class="xai-body">
+        <div class="xai-question">"Which features matter most globally?"</div>
+        <div class="xai-answer">TreeExplainer on the RF base model inside the stacking ensemble. 500 test patients sampled. Produces beeswarm plots, bar charts, and patient-level waterfall plots.</div>
+        <div class="xai-result">
+          Top finding: PHQ9_Score, GAD7_Score,<br>
+          Social_Support drive highest risk.<br>
+          CD4_Count, ART_Adherence top HIV markers.
+        </div>
+      </div>
+    </div>
+
+    <div class="xai-card reveal">
+      <div class="xai-header" style="border-left: 3px solid var(--blue);">
+        <div class="xai-name" style="color:var(--blue);">LIME</div>
+        <div class="xai-fullname">Local Interpretable Model-Agnostic Explanations</div>
+      </div>
+      <div class="xai-body">
+        <div class="xai-question">"Why was THIS patient flagged?"</div>
+        <div class="xai-answer">LimeTabularExplainer with 1000 perturbation samples. Explains individual patients locally — not global averages. Side-by-side SHAP vs LIME comparison validates consistency.</div>
+        <div class="xai-result">
+          Both SHAP and LIME agree on top 5<br>
+          risk factors for same patient —<br>
+          validating explanation reliability.
+        </div>
+      </div>
+    </div>
+
+    <div class="xai-card reveal">
+      <div class="xai-header" style="border-left: 3px solid var(--gold);">
+        <div class="xai-name" style="color:var(--gold);">DiCE</div>
+        <div class="xai-fullname">Diverse Counterfactual Explanations</div>
+      </div>
+      <div class="xai-body">
+        <div class="xai-question">"What needs to change to reduce risk?"</div>
+        <div class="xai-answer">Generates 3 diverse counterfactuals showing minimum feature changes to flip prediction from High Risk to Low Risk. Clinically actionable intervention targets.</div>
+        <div class="xai-result">
+          Example: "If Social_Support 2→6<br>
+          and Sleep_Quality 3→7, patient<br>
+          flips from High Risk to Low Risk."
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- RESULTS -->
+<section id="results">
+  <div class="section-label reveal">Performance</div>
+  <h2 class="section-title reveal">Complete Results</h2>
+  <p class="section-sub reveal">All models benchmarked — individual, stacking, quantum-selected, vs base paper.</p>
+
+  <div class="results-grid">
+    <div class="results-table reveal">
+      <div class="rt-header">
+        <div>Model</div>
+        <div>Accuracy</div>
+        <div>F1</div>
+        <div>AUC</div>
+      </div>
+      <div class="rt-row"><div>Classical SVC (Base)</div><div>68%</div><div>0.68</div><div>0.73</div></div>
+      <div class="rt-row"><div>QSVC Alone (Base)</div><div>52%</div><div>0.52</div><div>0.48</div></div>
+      <div class="rt-row"><div>Base Paper Best</div><div>88%</div><div>0.88</div><div>0.91</div></div>
+      <div class="rt-row"><div>Random Forest (Ours)</div><div>91.15%</div><div>0.910</div><div>0.973</div></div>
+      <div class="rt-row"><div>XGBoost (Ours)</div><div>90.80%</div><div>0.907</div><div>0.977</div></div>
+      <div class="rt-row"><div>LightGBM (Ours)</div><div>90.90%</div><div>0.908</div><div>0.977</div></div>
+      <div class="rt-row"><div>Stacking Quantum-10</div><div>~97%</div><div>0.97</div><div>0.975</div></div>
+      <div class="rt-row best"><div>★ Stacking Ensemble</div><div>91.25%</div><div>0.911</div><div>0.980</div></div>
+    </div>
+
+    <div class="improvement-box reveal">
+      <div>
+        <div class="imp-label">AUC-ROC Score</div>
+        <div class="imp-item">
+          <div>
+            <div class="imp-bar-wrap">
+              <div class="imp-bar-labels">
+                <span class="base">Base: 0.91</span>
+                <span class="ours">Ours: 0.98</span>
+              </div>
+              <div class="imp-bar-track">
+                <div class="imp-bar-fill" style="width:92.85%"></div>
+              </div>
+            </div>
+          </div>
+          <div style="font-family:var(--font-head); font-size:22px; font-weight:800; color:var(--teal);">+7.7%</div>
+        </div>
+      </div>
+      <div>
+        <div class="imp-label">Dataset Scale</div>
+        <div class="imp-item">
+          <div>
+            <div class="imp-bar-wrap">
+              <div class="imp-bar-labels">
+                <span class="base">Base: 100</span>
+                <span class="ours">Ours: 10K</span>
+              </div>
+              <div class="imp-bar-track">
+                <div class="imp-bar-fill" style="width:99%"></div>
+              </div>
+            </div>
+          </div>
+          <div style="font-family:var(--font-head); font-size:22px; font-weight:800; color:var(--teal);">×100</div>
+        </div>
+      </div>
+      <div>
+        <div class="imp-label">Feature Count</div>
+        <div class="imp-item">
+          <div>
+            <div class="imp-bar-wrap">
+              <div class="imp-bar-labels">
+                <span class="base">Base: 5</span>
+                <span class="ours">Ours: 20</span>
+              </div>
+              <div class="imp-bar-track">
+                <div class="imp-bar-fill" style="width:75%"></div>
+              </div>
+            </div>
+          </div>
+          <div style="font-family:var(--font-head); font-size:22px; font-weight:800; color:var(--teal);">×4</div>
+        </div>
+      </div>
+      <div>
+        <div class="imp-label">XAI Methods</div>
+        <div class="imp-item">
+          <div>
+            <div class="imp-bar-wrap">
+              <div class="imp-bar-labels">
+                <span class="base">Base: 1</span>
+                <span class="ours">Ours: 3</span>
+              </div>
+              <div class="imp-bar-track">
+                <div class="imp-bar-fill" style="width:66%"></div>
+              </div>
+            </div>
+          </div>
+          <div style="font-family:var(--font-head); font-size:22px; font-weight:800; color:var(--teal);">×3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-title">Quantum Depression Risk</div>
+  <div class="footer-sub">Final Year Project — ECE Department | IEEE Access 2025 Enhancement</div>
+  <div class="footer-links">
+    <a href="https://github.com" class="footer-link" target="_blank">↗ GitHub Repository</a>
+    <a href="https://colab.research.google.com" class="footer-link" target="_blank">↗ Google Colab</a>
+    <a href="#pipeline" class="footer-link">↑ Back to Top</a>
+  </div>
+  <div class="footer-copy">
+    Base Paper: Routh &amp; Singh, IEEE Access 2025 — DOI: 10.1109/ACCESS.2025.3639110
+  </div>
+</footer>
+
+<script>
+// Scroll reveal
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => {
+        entry.target.classList.add('visible');
+      }, 80);
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Smooth nav active state
+const sections = document.querySelectorAll('section, [id]');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(section => {
+    if (window.scrollY >= section.offsetTop - 100) {
+      current = section.getAttribute('id');
+    }
+  });
+  navLinks.forEach(link => {
+    link.style.color = link.getAttribute('href') === '#' + current
+      ? 'var(--teal)' : '';
+  });
+});
+</script>
+</body>
+</html>
