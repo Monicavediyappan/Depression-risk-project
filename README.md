@@ -1,5 +1,7 @@
-.
 
+ Depression -Risk- Project
+
+ 
 🧠 Depression Risk Prediction System
 
 🔗 Live Demo: https://monicavediyappan.github.io/Depression-risk-project/
