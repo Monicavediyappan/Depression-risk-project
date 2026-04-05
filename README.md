@@ -1,123 +1,53 @@
-Depression-risk-project
+# 🧠 Quantum-Enhanced Depression Risk Prediction in AIDS Patients
 
+**Final Year Project — ECE Department | Anna University**
 
-🧠 Depression Risk Prediction System
+🔗 **Live Website:** https://monicavediyappan.github.io/Depression-risk-project/
 
-🔗 Live Demo: https://monicavediyappan.github.io/Depression-risk-project/
+---
 
-📌 Overview
+## Overview
 
-The Depression Risk Prediction System is a machine learning-powered web application that predicts the likelihood of depression based on user-provided lifestyle, health, and demographic data.
+A quantum-classical hybrid AI system predicting depression risk in AIDS 
+patients — improving on Routh & Singh (IEEE Access, 2025) across every 
+dimension.
 
-This project focuses on early detection of mental health risks using data-driven techniques, helping users gain awareness and take preventive steps.
+## Key Results
 
-🎯 Key Highlights:
+| Metric | Base Paper | Our Project |
+|--------|-----------|-------------|
+| AUC-ROC | 0.91 | **0.98** (+7.7%) |
+| Accuracy | 88% | **91.25%** |
+| Dataset | 100 patients | **10,000 patients** |
+| Features | 5 | **20** |
+| XAI Methods | SHAP only | **SHAP + LIME + DiCE** |
 
-🔍 Predicts depression risk using ML models
+## Innovations
 
-🧠 Focus on mental health awareness & early detection
+1. 100x larger dataset — 10,000 patients with 20 clinical features
+2. Quantum-Classical Hybrid — PennyLane VQC + Qiskit QSVC
+3. Stacking Ensemble — RF + XGBoost + LightGBM + SVM + LogReg
+4. Triple XAI — SHAP + LIME + DiCE explainability
+5. Fairness Analysis — Fairlearn across gender, age, CD4 groups
+6. Cross-Dataset Validation — 2,000 independent patient test
+7. Auto Clinical Report — generated per patient
 
-🌐 Deployed as a responsive web application
+## Tech Stack
 
-⚡ Fast predictions with simple user input
+- **Quantum:** PennyLane, Qiskit
+- **ML:** scikit-learn, XGBoost, LightGBM
+- **XAI:** SHAP, LIME, DiCE
+- **Fairness:** Fairlearn
+- **Platform:** Google Colab
+- **Website:** GitHub Pages
 
-🚀 Features:
+## Base Paper
 
-📝 Interactive input form
+Routh & Singh, IEEE Access 2025  
+DOI: 10.1109/ACCESS.2025.3639110
 
-🤖 Machine Learning prediction
+## Author
 
-📊 Instant result display
-
-💻 Clean and responsive UI
-
-🌍 Accessible via GitHub Pages
-
-🛠️ Tech Stack
-
-Frontend:
-
-HTML
-
-CSS
-
-JavaScript
-
-Machine Learning:
-
-Python
-
-Scikit-learn
-
-Pandas
-
-NumPy
-
-Deployment:
-
-GitHub Pages
-
-📂 Project Structure
-
-Depression-risk-project
-
-│
-
-├── index.html
-
-├── style.css
-
-├── script.js
-
-├── model
-
-├── dataset
-
-└── README.md
-
-⚙️ Working:
-
-User enters personal and lifestyle details
-
-Input data is processed
-
-Pre-trained ML model predicts depression risk
-
-Result is displayed instantly
-
-📊 Machine Learning Details:
-
-Data preprocessing and cleaning
-
-Feature engineering
-
-Model training using classification algorithms
-
-Evaluation and prediction
-
-📈 Future Enhancements:
-
-📊 Data visualization dashboard
-
-🤖 Advanced ML/DL models (CNN/ANN)
-
-☁️ Backend integration (Flask/Node.js)
-
-🧾 Personalized mental health suggestions
-
-⚠️ Disclaimer:
-
-This project is intended for educational purposes only and does not replace professional medical advice.
-
-👩‍💻 Author
-
-Monica V 🎓 Final Year ECE Student (Anna University) 💡 Aspiring Data Scientist|Data Engineer| ML Engineer
-
-⭐ Why This Project Matters
-
-Mental health is a critical global issue. This project demonstrates how Machine Learning can be applied in healthcare to assist in early detection and awareness.
- 
-
-
+**Monica V** — Final Year ECE Student, Anna University
 
 
