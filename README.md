@@ -9,6 +9,7 @@ The Depression Risk Prediction System is a machine learning-powered web applicat
 
 This project focuses on early detection of mental health risks using data-driven techniques, helping users gain awareness and take preventive steps.
 
+
 🎯 Key Highlights:
 
 🔍 Predicts depression risk using ML models
@@ -44,6 +45,7 @@ CSS
 
 JavaScript
 
+
 Machine Learning:
 
 Python
@@ -53,6 +55,7 @@ Scikit-learn
 Pandas
 
 NumPy
+
 
 Deployment:
 
@@ -78,7 +81,7 @@ Depression-risk-project
 └── README.md
 
 
-⚙️ Working
+⚙️ Working:
 
 User enters personal and lifestyle details
 
@@ -89,7 +92,7 @@ Pre-trained ML model predicts depression risk
 Result is displayed instantly
 
 
-📊 Machine Learning Details
+📊 Machine Learning Details:
 
 Data preprocessing and cleaning
 
@@ -100,7 +103,7 @@ Model training using classification algorithms
 Evaluation and prediction
 
 
-📈 Future Enhancements
+📈 Future Enhancements:
 
 📊 Data visualization dashboard
 
@@ -111,7 +114,7 @@ Evaluation and prediction
 🧾 Personalized mental health suggestions
 
 
-⚠️ Disclaimer
+⚠️ Disclaimer:
 
 This project is intended for educational purposes only and does not replace professional medical advice.
 
@@ -119,7 +122,8 @@ This project is intended for educational purposes only and does not replace prof
 
 Monica V
 🎓 Final Year ECE Student (Anna University)
-💡 Aspiring Data Scientist|Data Engineer| ML Engineer  
+💡 Aspiring Data Scientist|Data Engineer| ML Engineer
+
 
 ⭐ Why This Project Matters
 
