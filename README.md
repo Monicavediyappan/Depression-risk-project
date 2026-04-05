@@ -10,22 +10,35 @@ The Depression Risk Prediction System is a machine learning-powered web applicat
 This project focuses on early detection of mental health risks using data-driven techniques, helping users gain awareness and take preventive steps.
 
 🎯 Key Highlights
+
 🔍 Predicts depression risk using ML models
+
 🧠 Focus on mental health awareness & early detection
+
 🌐 Deployed as a responsive web application
+
 ⚡ Fast predictions with simple user input
+
 🚀 Features
+
 📝 Interactive input form
+
 🤖 Machine Learning prediction
+
 📊 Instant result display
+
 💻 Clean and responsive UI
+
 🌍 Accessible via GitHub Pages
+
 🛠️ Tech Stack
 
 Frontend:
 
 HTML
+
 CSS
+
 JavaScript
 
 Machine Learning:
