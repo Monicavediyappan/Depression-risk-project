@@ -21,7 +21,8 @@ This project focuses on early detection of mental health risks using data-driven
 ⚡ Fast predictions with simple user input
 
 
-🚀 Features
+
+🚀 Features:
 
 📝 Interactive input form
 
@@ -32,6 +33,7 @@ This project focuses on early detection of mental health risks using data-driven
 💻 Clean and responsive UI
 
 🌍 Accessible via GitHub Pages
+
 
 
 
@@ -46,6 +48,7 @@ CSS
 JavaScript
 
 
+
 Machine Learning:
 
 Python
@@ -57,9 +60,11 @@ Pandas
 NumPy
 
 
+
 Deployment:
 
 GitHub Pages
+
 
 
 📂 Project Structure
@@ -79,6 +84,7 @@ Depression-risk-project
 ├── dataset
 
 └── README.md
+
 
 
 ⚙️ Working:
